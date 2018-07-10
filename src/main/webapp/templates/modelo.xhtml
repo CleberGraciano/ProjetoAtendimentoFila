@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+	<ui:insert name="metadata" />
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Atendimento
+	
+	
+	</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<h:outputScript library="js" name="scripts.js"/>
+	
+	
+
+</h:head>
+<h:body>
+	<p:growl id="mensagem" />
+
+
+	<div id="geral">
+
+		<!-- <div id="topo" class="divTopo">
+			<p:graphicImage styleClass="imagemCentralizada" library="images"
+				name="logoFarmacia.png" width="60%" height="60%" />
+		</div>
+		-->
+		<div id="cabecalho" class="divCabecalho">
+
+			<h:form id="formMenu">
+				<p:menubar>
+					<p:submenu label="Arquivo" icon="ui-icon-document">
+						<p:menuitem value="Sair" icon="ui-icon-close" />
+					</p:submenu>
+
+					<p:submenu label="Cadastros" icon="ui-icon-pencil">
+						<p:menuitem value="Estado" url="/pages/estados.xhtml"/>
+						<p:menuitem value="Cidade" url="/pages/cidades.xhtml"/>
+						<p:menuitem value="Pessoa" url="/pages/pessoa.xhtml"/>
+						<p:menuitem value="Setor" url="/pages/pessoa.xhtml"/>
+						<p:menuitem value="Agendamento" url="/pages/pessoa.xhtml"/>
+						<p:menuitem value="Preferencia" url="/pages/pessoa.xhtml"/>
+						<p:menuitem value="Salas" url="/pages/pessoa.xhtml"/>
+					</p:submenu>
+					
+					<p:submenu label="Relatórios" icon="ui-icon-pencil">
+						<p:menuitem value="Usuarios" url="/pages/estados.xhtml"/>
+						<p:menuitem value="Atendimentos" url="/pages/cidades.xhtml"/>
+						<p:menuitem value="Clientes" url="/pages/cidades.xhtml"/>
+					</p:submenu>
+					
+					
+
+						
+					
+				
+
+					<p:submenu label="Ajuda" icon="ui-icon-help">
+						<p:menuitem value="Sobre" />
+					</p:submenu>
+				</p:menubar>
+			</h:form>
+		</div>
+
+		<div id="conteudo">
+			<ui:insert name="conteudo" />
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+
+</h:body>
+</html>
+

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SiGDro
+	
+	
+	</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<h:outputScript library="js" name="scripts.js"/>
+	
+
+</h:head>
+<h:body>
+	<p:growl id="mensagem" />
+
+
+	<div id="geral">
+
+
+		
+		<div id="cabecalho" class="divCabecalho">
+
+			<h:form id="formMenu">
+				<p:menubar>
+					<p:submenu label="Arquivo" icon="ui-icon-document">
+						<p:menuitem value="Sair" icon="ui-icon-close" />
+					</p:submenu>
+
+					<p:submenu label="Cadastros" icon="ui-icon-pencil">
+						<p:menuitem value="Estado" url="/pages/estados.xhtml"/>
+						<p:menuitem value="Cidade" url="/pages/cidades.xhtml"/>
+						<p:menuitem value="Fabricante" url="/pages/fabricante.xhtml" />
+						<p:menuitem value="Produto" url="/pages/produtos.xhtml" />
+						<p:menuitem value="Pessoa" url="/pages/pessoa.xhtml"/>
+						<p:menuitem value="Cliente" url="/pages/clientes.xhtml"/>
+						<p:menuitem value="Funcionário" url="/pages/funcionario.xhtml"/>
+					</p:submenu>
+					
+					
+
+					<p:submenu label="Movimentações" icon="ui-icon-gear">
+						<p:menuitem value="Venda" url="/pages/vendas.xhtml" />
+					</p:submenu>
+					
+				
+
+					<p:submenu label="Ajuda" icon="ui-icon-help">
+						<p:menuitem value="Sobre" />
+					</p:submenu>
+				</p:menubar>
+			</h:form>
+		</div>
+
+		<div id="conteudo">
+		
+		
+		  <ui:define name="head">
+        <title>Admin Starter</title>
+    </ui:define>
+
+    <ui:define name="logo-lg">
+        Admin Starter
+    </ui:define>
+
+    <ui:define name="logo-mini">
+        Admin
+    </ui:define>
+
+    <ui:define name="menu">
+        <ul class="sidebar-menu">
+            <li>
+                <p:link href="/index.xhtml" onclick="clearBreadCrumbs()">
+                    <i class="fa fa-home"></i>
+                    <span>Home</span>
+                </p:link>
+            </li>
+                <li class="header">
+                    General
+                </li>
+                <li>
+                    <p:link href="/car-list.xhtml">
+                        <i class="fa fa-car"></i>
+                        <span>Cars</span>
+                    </p:link>
+                </li>
+        </ul>
+     </ui:define>
+
+    <ui:define name="top-menu">
+        <ui:include src="/includes/top-bar.xhtml"/>
+    </ui:define>
+
+      <ui:define name="title">
+        <h2 class="align-center">
+            Welcome to the <span class="text-aqua"> <i><a href="https://github.com/adminfaces/admin-starter" target="_blank"
+                                                          style="text-transform: none;text-decoration: none"> AdminFaces Starter</a></i></span> Project!
+            <br/>
+            <small>Integrating <p:link value="Primefaces" href="http://primefaces.org"/>, <p:link value="Bootstrap"
+                                                                                                  href="http://getbootstrap.com/"/> and
+                <p:link value="Admin LTE" href="https://almsaeedstudio.com/themes/AdminLTE/index2.html/"/> into your
+                <p:link value="JSF" href="https://javaserverfaces.java.net/"/> application.
+            </small>
+        </h2>
+    </ui:define>
+
+    <ui:define name="description">
+        A page description
+    </ui:define>
+
+    <ui:define name="body">
+            <h2>Page body</h2>
+    </ui:define>
+
+
+    <ui:define name="footer">
+          <a target="_blank"
+           href="https://github.com/adminfaces/">
+            Copyright (C) 2017 - AdminFaces
+        </a>
+
+        <div class="pull-right hidden-xs" style="color: gray">
+            <i>1.0.0</i>
+        </div>
+    </ui:define>
+		
+		
+		
+		
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+
+</h:body>
+</html>
+

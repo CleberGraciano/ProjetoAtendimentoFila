@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+ <session-factory>
+		<!-- Configuração da conexão -->
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/projetoFila</property> 
+			<property name="hibernate.connection.username">postgres</property> <property 
+			name="hibernate.connection.password">root</property>
+
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">10</property>
+		<property name="hibernate.c3p0.timeout">300</property>
+		<property name="hibernate.c3p0.max_statements">25</property>
+		<property name="hibernate.c3p0.idle_test_period">30</property>
+
+		<!-- Geração das tabelas -->
+		<property name="hbm2ddl.auto">update</property>
+
+		<!-- Mostrar Codigo SQl -->
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+
+		<!-- Classes anotadas -->
+		
+		<mapping class="domain.Estado"/>
+		<mapping class="domain.Cidade"/>
+		<mapping class="domain.Pessoa"/>
+	
+	
+	
+
+
+	<!-- <session-factory>
+
+		Configurações de Conexão com o Banco de Dados
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://www.000webhost.com/id4839361_drogaria</property>
+		<property name="connection.username">id4839361_drograria</property>
+		<property name="connection.password">root123</property>
+
+		Pool de Conexões
+		<property name="connection.pool_size">1</property>
+
+		SQL dialect
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+
+		Gerenciamento do Contexto das Sessões
+		<property name="current_session_context_class">thread</property>
+
+		Cache de Segundo Nível
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+		Mostra as SQLs Geradas
+		<property name="show_sql">true</property>
+
+		Cria as tabelas do banco de dados
+		<property name="hbm2ddl.auto">update</property>
+		
+		Mapeamento das Entidades
+		<mapping class="br.pro.delfino.drogaria.domain.Estado"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Fabricante"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Cidade"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Produto"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Pessoa"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Cliente"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Funcionario"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Usuario"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Venda"/>
+		<mapping class="br.pro.delfino.drogaria.domain.ItemVenda"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Historico"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Caixa"/>
+		<mapping class="br.pro.delfino.drogaria.domain.Movimentacao"/>
+	
+		
+	</session-factory>  -->
+	
+	</session-factory>
+	
+</hibernate-configuration>
