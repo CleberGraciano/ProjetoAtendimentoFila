@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formListagem">
+			<div class="footer">
+				<p:panel header="Senhas Cadastradas">
+					<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+						paginator="true" value="#{senhaBean.senhas}" var="senha" rows="15"
+						paginatorPosition="top" reflow="true">
+						<f:facet name="header">
+							<p:commandButton value="Novo" icon="ui-icon-plus"
+								oncomplete="PF('dialogo').show();"
+								actionListener="#{senhaBean.novo}"
+								update=":mensagem :formCadastro:painel">
+								<f:actionListener
+									type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							</p:commandButton>
+						</f:facet>
+						<p:column headerText="Usuário" filterBy="#{senha.usuario}"
+							filterMatchMode="contains">
+							<h:outputText value="#{senha.usuario}" />
+						</p:column>
+
+						<p:column headerText="Sistema" filterBy="#{senha.sistema}"
+							filterMatchMode="contains">
+							<h:outputText value="#{senha.sistema}" />
+						</p:column>
+
+						<p:column headerText="Descrição" filterBy="#{senha.descricao}"
+							filterMatchMode="contains">
+							<h:outputText value="#{senha.descricao}" />
+						</p:column>
+
+						<p:column headerText="Opções" width="135" styleClass="alinCentro">
+							<p:commandButton icon="fa fa-search" title="Visualizar"
+								actionListener="#{senhaBean.editar}"
+								update=":mensagem :formVisualizacao:painelVisualizacao"
+								oncomplete="PF('dialogoVisualizacao').show();">
+								<f:attribute name="senhaSelecionada" value="#{senha}" />
+								<f:actionListener
+									type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							</p:commandButton>
+
+							<p:commandButton icon="fa fa-pencil" title="Editar"
+								actionListener="#{senhaBean.editar}"
+								update=":mensagem :formCadastro:painel"
+								oncomplete="PF('dialogo').show();">
+								<f:attribute name="senhaSelecionada" value="#{senha}" />
+								<f:actionListener
+									type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							</p:commandButton>
+
+							<p:commandButton icon="fa fa-trash"
+								disabled="#{efetuasenhaBean.desativado(['A'])}"
+								actionListener="#{senhaBean.excluir}" title="Excluir"
+								update=":mensagem :formListagem:tabela">
+								<p:confirm header="Confirmação"
+									message="Deseja excluir a senha?" icon="ui-icon-alert" />
+								<f:attribute name="senhaSelecionada" value="#{senha}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+					<p:confirmDialog global="true">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:panel>
+			</div>
+		</h:form>
+
+		<p:dialog header="Cadastrar Senha" widgetVar="dialogo"
+			resizable="false" modal="true" appendTo="@(body)">
+			<h:form id="formCadastro">
+				<h:panelGrid id="painel" columns="2"
+					columnClasses="coluna1, coluna2">
+					<p:outputLabel for="usuario" value="Usuário" />
+					<p:inputText id="usuario" maxlength="63" size="30"
+						value="#{senhaBean.senha.usuario}" required="true"
+						requiredMessage="O campo 'Usuário' é obrigatório" />
+
+					<p:outputLabel for="senha" value="Senha" />
+					<p:inputText id="senha" maxlength="63" size="30"
+						value="#{senhaBean.senha.senha}" required="true"
+						requiredMessage="O campo 'Senha' é obrigatório" />
+
+					<p:outputLabel for="sistema" value="Sistema" />
+					<p:inputText id="sistema" maxlength="63" size="30"
+						value="#{senhaBean.senha.sistema}" required="true"
+						requiredMessage="O campo 'Sistema' é obrigatório" />
+
+					<p:outputLabel for="descricao" value="Descrição" />
+					<p:inputTextarea id="descricao" maxlength="255"
+						value="#{senhaBean.senha.descricao}" rows="2" cols="32" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" styleClass="alinBotoesDireita">
+					<p:commandButton icon="fa fa-save" value="Salvar"
+						actionListener="#{senhaBean.salvar}"
+						update=":mensagem :formCadastro:painel :formListagem:tabela" />
+
+					<p:commandButton icon="fa fa-close" value="Cancelar"
+						oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Senha" widgetVar="dialogoVisualizacao"
+			resizable="false" modal="true" appendTo="@(body)">
+			<h:form id="formVisualizacao">
+				<p:panelGrid id="painelVisualizacao">
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Data Cadastro">
+							</h:outputLabel>
+						</p:column>
+						<p:column>
+							<h:outputText value="#{senhaBean.senha.dataCadastro}">
+								<f:convertDateTime locale="pt_BR" dateStyle="long"
+									pattern="dd/MM/yyyy HH:mm" />
+							</h:outputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Usuário" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{senhaBean.senha.usuario}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Senha" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{senhaBean.senha.senha}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Sistema" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{senhaBean.senha.sistema}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Descrição" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{senhaBean.senha.descricao}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<h:panelGrid columns="2" styleClass="alinBotoesDireita">
+					<p:commandButton icon="fa fa-close" value="Cancelar"
+						oncomplete="PF('dialogoVisualizacao').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
