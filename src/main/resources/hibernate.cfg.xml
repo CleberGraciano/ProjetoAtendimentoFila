@@ -33,6 +33,7 @@
 		<mapping class="domain.Estado"/>
 		<mapping class="domain.Cidade"/>
 		<mapping class="domain.Pessoa"/>
+		<mapping class="domain.Usuario"/>
 	
 	
 	
