@@ -1,0 +1,131 @@
+.logoLogin {
+	width: 100%;
+	margin-top: 40%;
+	margin-bottom: -5%;
+}
+
+body .ui-state-active, body .ui-state-highlight {
+	background-color: #003867;
+	color: #ffffff;
+}
+
+.margin-div-botoes {
+	margin-top: 4%;
+}
+
+body .ui-button.azul {
+	background-color: #003867;
+	color: #ffffff;
+}
+
+body .ui-button.vermelho {
+	background-color: #e62a10;
+	color: #ffffff;
+}
+
+.centralizar {
+	text-align: center;
+}
+
+.coluna1 {
+	text-align: right;
+	font-weight: 600;
+	padding-bottom: 15px;
+}
+
+.coluna2 {
+	text-align: left;
+	padding-bottom: 5px;
+}
+
+.alinBotoesDireita {
+	margin-left: auto;
+	margin-top: 2%;
+}
+
+.ui-dialog.ui-widget-content .ui-dialog-titlebar {
+	padding: 3px 15px;
+	border-bottom: 1px solid #eee;
+	background-color: #ffffff;
+}
+
+.divMudaSenha {
+	width: 355px;
+}
+
+.alinCentro {
+	text-align: center;
+}
+
+.ui-datatable .ui-datatable-header {
+	border-bottom: 0 none;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.ui-paginator.ui-paginator-top {
+	border-bottom: 0 none;
+	border-color: transparent;
+	background-color: transparent;
+}
+
+.ui-widget-header {
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	background: rgba(46, 69, 115, 0.1);
+	color: #333333;
+	font-weight: bold;
+}
+
+.marginTopo20 {
+	margin-top: 20px;
+}
+
+body.layout-compact .ui-button.ui-button-icon-only {
+	width: 32px;
+	height: 32px;
+	margin: 0px 5px 0px 0px;
+}
+
+body .ui-widget-header {
+	background-color: #003867;
+	color: #ffffff;
+	font-size: 16px;
+	border: 1px solid #003867;
+}
+
+body .ui-datatable tbody tr.ui-datatable-even.ui-state-highlight {
+	background-color: #e62a10;
+	color: #ffffff;
+}
+
+body .ui-button {
+	overflow: hidden;
+	background-color: #003867;
+	color: #ffffff;
+	font-size: 16px;
+	height: 36px;
+	padding: 0 16px;
+	border: 0 none;
+	-moz-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0
+		rgba(0, 0, 0, 0.16);
+	-webkit-box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0
+		rgba(0, 0, 0, 0.16);
+	box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0
+		rgba(0, 0, 0, 0.16);
+	-moz-transition: background-color 0.3s;
+	-o-transition: background-color 0.3s;
+	-webkit-transition: background-color 0.3s;
+	transition: background-color 0.3s;
+}
+
+body .ui-datatable thead th.ui-state-active, body .ui-datatable thead th.ui-state-highlight
+	{
+	background-color: #e62a10;
+	color: #ffffff;
+	border-top-color: #e62a10;
+}
+
+a.ui-link.ui-widget {
+	display: inline-block;
+	word-break: break-word;
+}

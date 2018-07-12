@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="3.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+	<welcome-file-list>
+		<welcome-file>inicial.xhtml</welcome-file>
+	</welcome-file-list>
+	<!-- Nome da Aplicação -->
+	<display-name>SGA</display-name>
+	
+	<!-- Estágio do Projeto -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	
+	<!-- Tema do PrimeFaces -->
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>ultima-#{guestPreferences.theme}</param-value>
+	</context-param>
+	
+	<!-- Carregamento do Hibernate -->
+	<listener>
+		<listener-class>util.HibernateContexto</listener-class>
+	</listener>
+	
+	<!-- Font Awesome -->
+	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<!-- Configuração do JSF -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Configurações Shiro -->
+	<listener>
+   		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
+	<filter>
+	   <filter-name>ShiroFilter</filter-name>
+	   <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+	</filter>
+	 
+	<filter-mapping>
+	   <filter-name>ShiroFilter</filter-name>
+	   <url-pattern>/*</url-pattern>
+	   <dispatcher>REQUEST</dispatcher>
+	   <dispatcher>FORWARD</dispatcher>
+	   <dispatcher>INCLUDE</dispatcher>
+	   <dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+
+	<error-page>
+		<error-code>401</error-code>
+		<location>/access.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.xhtml</location>
+	</error-page>
+</web-app>

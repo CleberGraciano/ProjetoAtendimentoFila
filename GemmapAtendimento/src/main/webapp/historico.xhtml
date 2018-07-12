@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formListagem">
+			<div class="footer">
+				<p:panel header="Histórico">
+					<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+						paginator="true" value="#{historicoBean.listaHistorico}"
+						var="historico" rows="15" paginatorPosition="top" reflow="true">
+						<p:column headerText="Atividade" filterBy="#{historico.atividade}"
+							filterMatchMode="contains">
+							<h:outputText value="#{historico.atividade}" />
+						</p:column>
+
+						<p:column headerText="Data" filterBy="#{historico.dataAtividade}"
+							filterMatchMode="contains">
+							<h:outputText value="#{historico.dataAtividade}">
+								<f:convertDateTime locale="pt_BR" dateStyle="long"
+									pattern="dd/MM/yyyy HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Usuário" filterBy="#{historico.nomeUsuario}"
+							filterMatchMode="contains">
+							<h:outputText value="#{historico.nomeUsuario}" />
+						</p:column>
+
+						<p:column headerText="Opções" width="105" styleClass="alinCentro">
+							<p:commandButton icon="fa fa-search" title="Visualizar"
+								actionListener="#{historicoBean.carregar}"
+								update=":mensagem :formVisualizacao:painelVisualizacao"
+								oncomplete="PF('dialogoVisualizacao').show();">
+								<f:attribute name="historicoSelecionado" value="#{historico}" />
+								<f:actionListener
+									type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+					<p:confirmDialog global="true">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:panel>
+			</div>
+		</h:form>
+
+		<p:dialog header="Histórico" widgetVar="dialogoVisualizacao"
+			resizable="false" modal="true" appendTo="@(body)">
+			<h:form id="formVisualizacao">
+				<p:panelGrid id="painelVisualizacao">
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Data Atividade" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{historicoBean.historico.dataAtividade}">
+								<f:convertDateTime locale="pt_BR" dateStyle="long"
+									pattern="dd/MM/yyyy HH:mm" />
+							</h:outputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Usuário" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{historicoBean.historico.nomeUsuario}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Atividade" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{historicoBean.historico.atividade}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Conteúdo" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{historicoBean.historico.conteudo}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

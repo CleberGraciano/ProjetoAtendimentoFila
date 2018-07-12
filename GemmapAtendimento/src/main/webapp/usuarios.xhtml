@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formListagem">
+			<div class="footer">
+				<p:panel header="Usuários Cadastrados">
+					<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+						paginator="true" value="#{usuarioBean.usuarios}" var="usuario"
+						rows="15" paginatorPosition="top" reflow="true">
+						<f:facet name="header">
+							<p:commandButton value="Novo" icon="ui-icon-plus"
+								oncomplete="PF('dialogo').show();"
+								actionListener="#{usuarioBean.novo}"
+								update=":mensagem :formCadastro:painel">
+								<f:actionListener
+									type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							</p:commandButton>
+						</f:facet>
+						<p:column headerText="Nome" filterBy="#{usuario.nome}" width="300"
+							filterMatchMode="contains">
+							<h:outputText value="#{usuario.nome}" />
+						</p:column>
+
+						<p:column headerText="Usuário" filterBy="#{usuario.usuario}"
+							filterMatchMode="contains">
+							<h:outputText value="#{usuario.usuario}" />
+						</p:column>
+
+						<p:column headerText="Tipo" filterBy="#{usuario.tipoFormatado}"
+							width="150" filterMatchMode="contains">
+							<h:outputText value="#{usuario.tipoFormatado}" />
+						</p:column>
+
+						<p:column headerText="Ativo" filterBy="#{usuario.ativoFormatado}"
+							width="110" filterMatchMode="contains" styleClass="alinCentro">
+							<h:outputText value="#{usuario.ativoFormatado}" />
+						</p:column>
+
+						<p:column headerText="Opções" width="135" styleClass="alinCentro">
+							<p:commandButton icon="fa fa-search" title="Visualizar"
+								actionListener="#{usuarioBean.editar}"
+								update=":mensagem :formVisualizacao:painelVisualizacao"
+								oncomplete="PF('dialogoVisualizacao').show();">
+								<f:attribute name="usuarioSelecionado" value="#{usuario}" />
+								<f:actionListener
+									type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							</p:commandButton>
+
+							<p:commandButton icon="fa fa-pencil" title="Editar"
+								actionListener="#{usuarioBean.editar}"
+								update=":mensagem :formCadastro:painel"
+								oncomplete="PF('dialogo').show();">
+								<f:attribute name="usuarioSelecionado" value="#{usuario}" />
+								<f:actionListener
+									type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							</p:commandButton>
+
+							<p:commandButton icon="fa fa-trash"
+								actionListener="#{usuarioBean.excluir}" title="Excluir"
+								update=":mensagem :formListagem:tabela">
+								<p:confirm header="Confirmação"
+									message="Deseja excluir o usuario?" icon="ui-icon-alert" />
+								<f:attribute name="usuarioSelecionado" value="#{usuario}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+					<p:confirmDialog global="true">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:panel>
+			</div>
+		</h:form>
+
+		<p:dialog header="Cadastrar Usuário" widgetVar="dialogo"
+			resizable="false" modal="true" appendTo="@(body)">
+			<h:form id="formCadastro">
+				<h:panelGrid id="painel" columns="2"
+					columnClasses="coluna1, coluna2">
+					<p:outputLabel for="nome" value="Nome" />
+					<p:inputText id="nome" maxlength="100" size="30"
+						value="#{usuarioBean.usuario.nome}" required="true"
+						requiredMessage="O campo 'Nome' é obrigatório" />
+
+					<p:outputLabel for="email" value="E-mail" />
+					<p:inputText id="email" maxlength="100" size="30"
+						value="#{usuarioBean.usuario.email}" required="true"
+						requiredMessage="O campo 'E-mail' é obrigatório" />
+
+					<p:outputLabel for="usuario" value="Usuário" />
+					<p:inputText id="usuario" maxlength="63" size="30"
+						value="#{usuarioBean.usuario.usuario}" required="true"
+						requiredMessage="O campo 'Usuário' é obrigatório" />
+
+					<p:outputLabel for="senha" value="Senha" />
+					<p:password id="senha" maxlength="16" size="20"
+						value="#{usuarioBean.usuario.senha}"
+						required="true" requiredMessage="O campo 'Senha' é obrigatório" />
+
+					<p:outputLabel for="tipo" value="Tipo" />
+					<p:selectOneRadio id="tipo" required="true"
+						requiredMessage="O campo 'Tipo de Usuário' é obrigatório"
+						value="#{usuarioBean.usuario.tipo}">
+						<f:selectItem itemValue="U" itemLabel="Usuário" />
+						<f:selectItem itemValue="A" itemLabel="Administrador" />
+					</p:selectOneRadio>
+
+					<h:outputText value="Ativo" />
+					<p:selectBooleanButton id="ativo" value="#{usuarioBean.ativo}"
+						onLabel="Sim" offLabel="Não" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" styleClass="alinBotoesDireita">
+					<p:commandButton icon="fa fa-save" value="Salvar"
+						actionListener="#{usuarioBean.salvar}"
+						update=":mensagem :formCadastro:painel :formListagem:tabela" />
+
+					<p:commandButton icon="fa fa-close" value="Cancelar"
+						oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Usuário" widgetVar="dialogoVisualizacao"
+			resizable="false" modal="true" appendTo="@(body)">
+			<h:form id="formVisualizacao">
+				<p:panelGrid id="painelVisualizacao">
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Nome" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{usuarioBean.usuario.nome}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="E-mail" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{usuarioBean.usuario.email}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Usuário" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{usuarioBean.usuario.usuario}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Tipo" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{usuarioBean.usuario.tipoFormatado}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Ativo" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{usuarioBean.usuario.ativoFormatado}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<h:panelGrid columns="2" styleClass="alinBotoesDireita">
+					<p:commandButton icon="fa fa-close" value="Cancelar"
+						oncomplete="PF('dialogoVisualizacao').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+	</f:facet>
+	<title>SGA</title>
+	<link rel="shortcut icon" href="resources/imagens/cad.ico"  />
+	<h:outputScript name="js/ripple.js" library="ultima-layout" />
+	<h:outputScript name="js/layout.js" library="ultima-layout" />
+</h:head>
+
+<h:body styleClass="login-body">
+	<h:form>
+		<p:growl autoUpdate="true" closable="true" />
+
+		<div class="card login-panel ui-fluid">
+			<div class="ui-g">
+				<div class="ui-g-12">
+					<p:graphicImage name="logoGemmap.jpg" library="imagens"
+						styleClass="logoLogin" />
+				</div>
+				<div class="ui-g-12">
+					<h:panelGroup styleClass="md-inputfield">
+						<p:inputText value="#{loginBean.usuario.usuario}" placeholder="Usuário" />
+					</h:panelGroup>
+				</div>
+				<div class="ui-g-12">
+					<h:panelGroup styleClass="md-inputfield">
+						<p:password value="#{loginBean.usuario.senha}"
+							placeholder="Senha" maxlength="60" />
+					</h:panelGroup>
+				</div>
+				<div class="ui-g-12 .margin-div-botoes">
+					<p:commandButton value="Entrar" icon="ui-icon-person"
+					styleClass="azul" actionListener="#{loginBean.entrar}" />
+					<p:button outcome="/esqueciMinhaSenha" value="Esqueci Minha Senha"
+						icon="ui-icon-help" styleClass="vermelho" />
+				</div>
+			</div>
+		</div>
+		<div class="login-footer"></div>
+	</h:form>
+
+	<p:ajaxStatus
+		style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+		<f:facet name="start">
+			<i class="fa fa-circle-o-notch fa-spin ajax-loader"
+				aria-hidden="true"></i>
+		</f:facet>
+
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+
+	<h:outputStylesheet name="css/ripple.css" library="ultima-layout" />
+	<h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css"
+		library="ultima-layout" />
+	<h:outputStylesheet library="css" name="estilos.css" />
+</h:body>
+
+</html>

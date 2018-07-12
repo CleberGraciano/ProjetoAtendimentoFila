@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formListagem">
+			<div class="footer">
+				<p:panel header="Servidores Cadastrados">
+					<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+						dataLocale="pt_BR" paginator="true"
+						value="#{servidorBean.servidores}" var="servidor" rows="15"
+						paginatorPosition="top" reflow="true">
+						<f:facet name="header">
+							<p:commandButton value="Novo" icon="ui-icon-plus"
+								oncomplete="PF('dialogo').show();"
+								actionListener="#{servidorBean.novo}"
+								update=":mensagem :formCadastro:painel">
+								<f:actionListener
+									type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							</p:commandButton>
+						</f:facet>
+						<p:column headerText="Cidade" filterBy="#{servidor.cidade.nome}"
+							filterMatchMode="contains">
+							<h:outputText value="#{servidor.cidade.nome}" />
+						</p:column>
+
+						<p:column headerText="Host" filterBy="#{servidor.host}"
+							filterMatchMode="contains">
+							<h:outputText value="#{servidor.host}" />
+						</p:column>
+
+						<p:column headerText="Status" filterBy="#{servidor.status}"
+							filterMatchMode="contains">
+							<h:outputText value="#{servidor.status}" />
+						</p:column>
+
+						<p:column headerText="Opções" width="200" styleClass="alinCentro">
+
+							<p:button title="Visualizar"
+								icon="fa fa-search" outcome="servidorVisualizacao.xhtml">
+								<f:param name="codigo" value="#{servidor.id}" />
+							</p:button>
+
+							<p:commandButton icon="fa fa-pencil" title="Editar"
+								actionListener="#{servidorBean.editar}"
+								update=":mensagem :formCadastro:painel"
+								oncomplete="PF('dialogo').show();">
+								<f:attribute name="servidorSelecionado" value="#{servidor}" />
+								<f:actionListener
+									type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							</p:commandButton>
+
+							<p:commandButton icon="fa fa-check" title="Reativar Servidor"
+								actionListener="#{servidorBean.ativarServidor}"
+								update=":mensagem :formCadastro:painel :formListagem:tabela">
+								<p:confirm header="Confirmação"
+									message="Deseja ativar o servidor?" icon="ui-icon-alert" />
+								<f:attribute name="servidorSelecionado" value="#{servidor}" />
+							</p:commandButton>
+
+							<p:commandButton icon="fa fa-close" title="Desativar Servidor"
+								actionListener="#{servidorBean.desativarServidor}"
+								update=":mensagem :formCadastro:painel :formListagem:tabela">
+								<p:confirm header="Confirmação"
+									message="Deseja desativar o servidor?" icon="ui-icon-alert" />
+								<f:attribute name="servidorSelecionado" value="#{servidor}" />
+							</p:commandButton>
+
+							<p:commandButton icon="fa fa-trash"
+								disabled="#{loginBean.desativado(['A'])}"
+								actionListener="#{servidorBean.excluir}" title="Excluir"
+								update=":mensagem :formListagem:tabela">
+								<p:confirm header="Confirmação"
+									message="Deseja excluir permanentemente o servidor?"
+									icon="ui-icon-alert" />
+								<f:attribute name="servidorSelecionado" value="#{servidor}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+					<p:confirmDialog global="true">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:panel>
+			</div>
+		</h:form>
+
+		<p:dialog header="Cadastrar Servidor" widgetVar="dialogo"
+			resizable="false" modal="true" appendTo="@(body)">
+			<h:form id="formCadastro">
+				<h:panelGrid id="painel" layout="grid" columns="2"
+					columnClasses="ui-grid-col-4,ui-grid-col-8">
+					<p:outputLabel for="cidade" value="Cidade" />
+					<p:selectOneMenu id="cidade" filter="true"
+						value="#{servidorBean.servidor.cidade}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo 'Cidade' é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione uma cidade" />
+						<f:selectItems value="#{servidorBean.cidades}" var="cidade"
+							itemValue="#{cidade}" itemLabel="#{cidade.nome}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="host" value="Host" />
+					<p:inputText id="host" maxlength="60"
+						value="#{servidorBean.servidor.host}" required="true"
+						requiredMessage="O campo 'Host' é obrigatório" />
+
+					<p:outputLabel for="usuario" value="Usuário" />
+					<p:inputText id="usuario" maxlength="60"
+						value="#{servidorBean.servidor.usuario}" required="true"
+						requiredMessage="O campo 'Usuário' é obrigatório" />
+
+					<p:outputLabel for="senha" value="Senha" />
+					<p:inputText id="senha" maxlength="60"
+						value="#{servidorBean.servidor.senha}" required="true"
+						requiredMessage="O campo 'Senha' é obrigatório" />
+
+					<p:outputLabel for="responsavel" value="Responsável" />
+					<p:inputText id="responsavel" maxlength="50"
+						value="#{servidorBean.servidor.responsavel}" />
+
+					<p:outputLabel for="telefone" value="Telefone" />
+					<p:inputMask id="telefone" mask="(99)9999-9999" maxlength="20"
+						value="#{servidorBean.servidor.telefone}" />
+
+					<p:outputLabel for="linkServidor" value="Link do Servidor" />
+					<p:inputTextarea id="linkServidor" maxlength="255"
+						value="#{servidorBean.servidor.linkServidor}" />
+
+					<p:outputLabel for="linkGemmap" value="Link do Gemmap" />
+					<p:inputTextarea id="linkGemmap" maxlength="255"
+						value="#{servidorBean.servidor.linkGemmap}" />
+
+					<p:outputLabel for="observacoes" value="Observações" />
+					<p:inputTextarea id="observacoes" maxlength="255"
+						value="#{servidorBean.servidor.observacoes}" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" styleClass="alinBotoesDireita">
+					<p:commandButton icon="fa fa-save" value="Salvar"
+						actionListener="#{servidorBean.salvar}"
+						update=":mensagem :formCadastro:painel :formListagem:tabela" />
+
+					<p:commandButton icon="fa fa-close" value="Cancelar"
+						oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<p:dialog header="Servidor" widgetVar="dialogoVisualizacao"
+			responsive="true" resizable="false" modal="true" appendTo="@(body)">
+			<h:form id="formVisualizacao">
+				<p:panelGrid id="painelVisualizacao">
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Data Cadastro" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.dataInclusao}">
+								<f:convertDateTime locale="pt_BR" dateStyle="long"
+									pattern="dd/MM/yyyy HH:mm" />
+							</h:outputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Cidade" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.cidade.nome}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Host" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.host}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Usuário" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.usuario}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Senha" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.senha}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Responsável" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.responsavel}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Telefone" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.telefone}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Link do Servidor" />
+						</p:column>
+						<p:column>
+							<p:inputTextarea value="#{servidorBean.servidor.linkServidor}"
+								readonly="true" style="border: 0px" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Link do Gemmap" />
+						</p:column>
+						<p:column>
+							<p:inputTextarea value="#{servidorBean.servidor.linkGemmap}"
+								readonly="true" style="border: 0px" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Status" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.status}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Observações" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.observacoes}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<h:panelGrid columns="1" styleClass="alinBotoesDireita">
+					<p:commandButton icon="fa fa-close" value="Cancelar"
+						oncomplete="PF('dialogoVisualizacao').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

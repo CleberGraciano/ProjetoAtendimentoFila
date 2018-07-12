@@ -40,6 +40,6 @@
  </servlet-mapping>
  <!-- Pagina Principal -->
  <welcome-file-list>
-  <welcome-file>pages/principal.xhtml</welcome-file>
+  <welcome-file>pages/autenticacao.xhtml</welcome-file>
  </welcome-file-list>
 </web-app>

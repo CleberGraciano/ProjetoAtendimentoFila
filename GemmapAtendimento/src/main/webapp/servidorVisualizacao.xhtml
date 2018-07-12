@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/WEB-INF/template.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="codigo" value="#{servidorBean.codigo}" />
+		<f:viewAction action="#{servidorBean.buscar}" />
+	</f:metadata>
+
+	<ui:define name="content">
+		<h:form id="formVisualizacao">
+			<p:panel header="Servidor">
+				<p:panelGrid id="painelVisualizacao">
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Data Cadastro" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.dataInclusao}">
+								<f:convertDateTime locale="pt_BR" dateStyle="long"
+									pattern="dd/MM/yyyy HH:mm" />
+							</h:outputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Cidade" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.cidade.nome}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Host" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.host}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Usuário" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.usuario}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Senha" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.senha}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Responsável" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.responsavel}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Telefone" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.telefone}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Link do Servidor" />
+						</p:column>
+						<p:column>
+							<p:link target="_blank" value="#{servidorBean.servidor.linkServidor}" onclick="window.open('#{servidorBean.servidor.linkServidor}')" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Link do Gemmap" />
+						</p:column>
+						<p:column>
+							<p:link target="_blank" value="#{servidorBean.servidor.linkGemmap}"  onclick="window.open('#{servidorBean.servidor.linkGemmap}')" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Status" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.status}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="Observações" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{servidorBean.servidor.observacoes}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

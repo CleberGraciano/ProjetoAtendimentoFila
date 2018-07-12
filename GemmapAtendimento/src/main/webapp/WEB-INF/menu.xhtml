@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pu="http://primefaces.org/ultima">
+
+	<h:form id="menuform">
+		<div class="layout-menu #{guestPreferences.menuClass}">
+			<div class="nano">
+				<div class="nano-content menu-scroll-content">
+					<ui:fragment
+						rendered="#{guestPreferences.profileMode == 'inline' and guestPreferences.menuLayout != 'menu-layout-static menu-layout-horizontal'}">
+						<div class="profile">							
+							<p:panel style="background-color: transparent; border-color: transparent;">
+								<div class="profile-image-menu"></div>
+							</p:panel>
+							
+							<a id="profile-options" href="#"> <span class="profile-name"><h:outputText
+										value="#{usuarioBean.usuarioLogado.nome}" /></span> <i
+								class="material-icons">&#xE313;</i>
+							</a>
+						</div>
+
+						<ul id="profile-menu" class="ultima-menu">
+							<li role="menuitem">
+								<p:link styleClass="ripplelink" outcome="/alteraSenha">
+									<i class="material-icons">&#xE7FD;</i> 
+									<span>Alterar Senha</span>
+								</p:link>
+							</li>
+	
+							<li role="menuitem">
+								<p:commandLink styleClass="ripplelink"
+									actionListener="#{loginBean.sair}">
+									<i class="material-icons">cancel</i>
+									<span>Sair</span>
+								</p:commandLink> 
+							</li>
+						</ul>
+					</ui:fragment>
+
+					<pu:menu widgetVar="me">
+						<p:menuitem id="inicio" value="Início" icon="&#xE88A;"
+							outcome="/senhas" />
+				
+						<p:submenu id="cadastros" label="Cadastros"
+							icon="&#xE147;">
+							<p:menuitem id="cidade" value="Cidades"
+								icon="&#xE55D;" outcome="/cidades" />
+								<p:menuitem id="senha" value="Senhas"
+								icon="&#xE897;" outcome="/senhas" />
+								<p:menuitem id="servidor" value="Servidores"
+								icon="dns" outcome="/servidores" />
+								<p:menuitem id="usuario" value="Usuários" rendered="#{loginBean.temPermissoes(['A'])}"
+								icon="face" outcome="/usuarios" />
+						</p:submenu>
+						
+						<p:submenu id="historico" label="Histórico"
+							icon="receipt" rendered="#{loginBean.temPermissoes(['A'])}">
+							<p:menuitem id="visualizar" value="Visualizar" 
+								icon="zoom_in" outcome="/historico" />
+						</p:submenu>
+					</pu:menu>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>
